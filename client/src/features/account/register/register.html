@@ -5,14 +5,8 @@
 	<div class="card-body w-full">
 		<form #registerForm="ngForm" class="flex flex-col gap-4 w-full" (ngSubmit)="register()">
 			<input class="input w-full" name="email" placeholder="Email" [(ngModel)]="creds.email" />
-			<input class="input w-full" name="dsisplayName" placeholder="DisplayName" [(ngModel)]="creds.dsisplayName" />
+			<input class="input w-full" name="displayName" placeholder="DisplayName" [(ngModel)]="creds.displayName" />
 			<input type="password" class="input w-full" name="password" placeholder="Password" [(ngModel)]="creds.password" />
-			<select class="select w-full">
-				<option disabled selected>Pick a member</option>
-				@for (member of membersFromHome(); track $index) {
-					<option value="{{member.id}}">{{member.displayName}}</option>
-				}
-			</select>
 			<div class="flex items-center justify-end gap-3">
 				<button type="button" class="btn" (click)="cancel()">Cancel</button>
 				<button type="submit" class="btn btn-primary">Submit</button>
