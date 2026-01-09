@@ -1,7 +1,7 @@
 <div class="hero bg-base-200 min-h-screen">
 	@if (registerMode()) {
 		<div class="w-full text-2xl text-center flex justify-center">
-			<app-register class="w-full" />
+			<app-register class="w-full" [membersFromHome]="membersFromApp" />
 		</div>
 	} @else {
 		<div class="hero-content text-center">
