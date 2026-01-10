@@ -1,20 +1,21 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { Nav } from '../layout/nav/nav';
 import { AccountService } from '../core/services/account-service';
-import { Home } from "../features/home/home";
 import { User } from '../types/user';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.html',
 	styleUrl: './app.css',
-	imports: [Nav, Home],
+	imports: [Nav, RouterOutlet,],
 })
 export class App implements OnInit {
 	protected readonly title = signal('Dating App');
 	private http = inject(HttpClient);
+	protected readonly router = inject(Router);
 	private accountService = inject(AccountService);
 	protected members = signal<User[]>([]);
 
