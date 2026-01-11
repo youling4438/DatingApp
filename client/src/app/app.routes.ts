@@ -4,6 +4,7 @@ import { MemberList } from '../features/members/member-list/member-list';
 import { MemberDetailed } from '../features/members/member-detailed/member-detailed';
 import { Lists } from '../features/lists/lists';
 import { Messages } from '../features/messages/messages';
+import { authGuard } from '../core/guards/auth-guard';
 
 export const routes: Routes = [
 	{
@@ -13,6 +14,7 @@ export const routes: Routes = [
 	{
 		path: 'members',
 		component: MemberList,
+		canActivate: [authGuard],
 	},
 	{
 		path: 'members/:id',

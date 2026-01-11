@@ -28,7 +28,6 @@ export class Nav {
 			error: (error) => {
 				console.error(error.error);
 				this.toast.error('Login failed. Please check your credentials.');
-				// TODO: Add toast notification for login error
 			},
 		});
 	}
