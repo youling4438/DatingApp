@@ -12,21 +12,28 @@ export const routes: Routes = [
 		component: Home,
 	},
 	{
-		path: 'members',
-		component: MemberList,
+		path: '',
+		runGuardsAndResolvers: 'always',
 		canActivate: [authGuard],
-	},
-	{
-		path: 'members/:id',
-		component: MemberDetailed,
-	},
-	{
-		path: 'lists',
-		component: Lists,
-	},
-	{
-		path: 'messages',
-		component: Messages,
+		children: [
+			{
+				path: 'members',
+				component: MemberList,
+				canActivate: [authGuard],
+			},
+			{
+				path: 'members/:id',
+				component: MemberDetailed,
+			},
+			{
+				path: 'lists',
+				component: Lists,
+			},
+			{
+				path: 'messages',
+				component: Messages,
+			},
+		],
 	},
 	{
 		path: '**',
