@@ -8,16 +8,6 @@ export class ToastService {
 		this.createToastContainer();
 	}
 
-	private createToast(message: string, type: 'success' | 'error' | 'info', duration: number) {
-		const toast = document.createElement('div');
-		toast.className = `toast toast-${type}`;
-		toast.innerText = message;
-		document.body.appendChild(toast);
-		setTimeout(() => {
-			document.body.removeChild(toast);
-		}, duration);
-	}
-
 	private createToastContainer() {
 		let container = document.getElementById('toast-container');
 		if (!container) {
