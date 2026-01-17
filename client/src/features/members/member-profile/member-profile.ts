@@ -1,4 +1,12 @@
-import { Component, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import {
+	Component,
+	HostListener,
+	inject,
+	OnDestroy,
+	OnInit,
+	signal,
+	ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EditableMember, Member } from '../../../types/member';
 import { DatePipe } from '@angular/common';
@@ -14,6 +22,12 @@ import { ToastService } from '../../../core/services/toast-service';
 })
 export class MemberProfile implements OnInit, OnDestroy {
 	@ViewChild('editForm') editForm?: NgForm;
+	@HostListener('window:beforeunload', ['$event']) notify($evnet: BeforeUnloadEvent) {
+		if (this.editForm?.dirty) {
+			$evnet.preventDefault();
+			confirm();
+		}
+	}
 	private route = inject(ActivatedRoute);
 	private toastService = inject(ToastService);
 	protected memberService = inject(MemberService);
