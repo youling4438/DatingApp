@@ -4,28 +4,10 @@
 	</div>
 	<div class="card-body w-full">
 		<form [formGroup]="registerForm" class="flex flex-col gap-4 w-full" (ngSubmit)="register()">
-			<label class="floating-label">
-				<span>Email</span>
-				<input class="input w-full" placeholder="Email" formControlName="email"/>
-			</label>
-			<label class="floating-label text-left">
-				<span>DisplayName</span>
-				<input class="input w-full"
-				[class.input-error]="registerForm.controls['displayName'].invalid && registerForm.controls['displayName'].touched"
-				placeholder="Display Name" formControlName="displayName"/>
-				@if (registerForm.controls['displayName'].invalid && registerForm.controls['displayName'].touched) {
-					<div class="validator-hint text-error text-xs visible">Display name is required</div>
-				}
-			</label>
-			<label class="floating-label">
-				<span>Password</span>
-				<input type="password" class="input w-full" placeholder="Password" formControlName="password"/>
-			</label>
-			<label class="floating-label">
-				<span>Confirm Password</span>
-				<input type="password" class="input w-full" placeholder="Confirm Password" formControlName="confirmPassword"/>
-			</label>
-
+			<app-text-input label="Email" formControlName="email" />
+			<app-text-input label="Display name" formControlName="displayName" />
+			<app-text-input label="Password" type="password" formControlName="password" />
+			<app-text-input label="Confirm Password" type="password" formControlName="confirmPassword" />
 			<div class="flex items-center justify-end gap-3">
 				<button type="button" class="btn" (click)="cancel()">Cancel</button>
 				<button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid" >Register</button>
