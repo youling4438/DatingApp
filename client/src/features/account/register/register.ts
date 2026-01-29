@@ -8,25 +8,27 @@ import {
 	ValidatorFn,
 	Validators,
 } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { RegisterCreds, User } from '../../../types/user';
+import { RegisterCreds, } from '../../../types/user';
 import { AccountService } from '../../../core/services/account-service';
 import { TextInput } from '../../../shared/text-input/text-input';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-register',
-	imports: [ReactiveFormsModule, JsonPipe, TextInput],
+	imports: [ReactiveFormsModule, TextInput],
 	templateUrl: './register.html',
 	styleUrl: './register.css',
 })
 export class Register {
 	private accountService = inject(AccountService);
 	private fb = inject(FormBuilder);
+	private router = inject(Router);
 	cancelRegister = output<boolean>();
 	protected creds = {} as RegisterCreds;
 	protected credentialsForm: FormGroup;
 	protected profileForm: FormGroup;
 	protected currentStep = signal(1);
+	protected validationErrors = signal<string[]>([]);
 
 	constructor() {
 		this.credentialsForm = this.fb.group({
@@ -36,7 +38,7 @@ export class Register {
 			confirmPassword: ['', [Validators.required, this.matchValues('password')]],
 		});
 		this.profileForm = this.fb.group({
-			gender: ['', Validators.required],
+			gender: ['male', Validators.required],
 			dateOfBirth: ['', Validators.required],
 			city: ['', Validators.required],
 			country: ['', Validators.required],
@@ -78,22 +80,21 @@ export class Register {
 	}
 
 	register() {
-		if(this.credentialsForm.valid && this.profileForm.valid) {
+		if (this.credentialsForm.valid && this.profileForm.valid) {
 			const formData = {
 				...this.credentialsForm.value,
 				...this.profileForm.value,
 			};
-			console.log('registering user with data:', formData);
+			this.accountService.register(formData).subscribe({
+				next: () => {
+					this.router.navigateByUrl('/members');
+				},
+				error: (error) => {
+					console.error('registration error:', error);
+					this.validationErrors.set(error);
+				},
+			});
 		}
-		// this.accountService.register(this.creds).subscribe({
-		// 	next: (user: User) => {
-		// 		console.log('registered user:', user);
-		// 		this.cancel();
-		// 	},
-		// 	error: (error) => {
-		// 		console.error('registration error:', error);
-		// 	},
-		// });
 	}
 
 	cancel() {
