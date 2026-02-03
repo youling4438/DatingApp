@@ -46,8 +46,7 @@ export class MemberList implements OnInit {
 
 	onFilterChanged(params: MemberParams): void {
 		this.memberParams = params;
-		console.log('Received filter params:', this.memberParams);
-		// this.loadMembers();
+		this.loadMembers();
 	}
 
 	resetFilters(): void {

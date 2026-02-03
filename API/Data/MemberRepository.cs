@@ -33,7 +33,11 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
         var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MaxAge - 1).AddDays(1));
         var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MinAge));
         query = query.Where(m => m.DateOfBirth >= minDob && m.DateOfBirth <= maxDob);
-
+        query = memberParams.OrderBy switch
+        {
+            "created" => query.OrderByDescending(m => m.Created),
+            _ => query.OrderByDescending(m => m.LastActive)
+        };
         return await PaginationHelper.CreateAsync(query, memberParams.PageNumber, memberParams.PageSize);
     }
 
