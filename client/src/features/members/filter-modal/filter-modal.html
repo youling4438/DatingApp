@@ -7,20 +7,20 @@
 					<span class="font-semibold">Select gender:</span>
 					<form class="filter">
 						<input type="reset" value="x" class="btn btn-square" />
-						<input type="radio" class="btn" aria-label="Male" [(ngModel)]="memberParams.gender" name="gender" value="male">
-						<input type="radio" class="btn" aria-label="Female" [(ngModel)]="memberParams.gender" name="gender" value="female">
+						<input type="radio" class="btn" aria-label="Male" [(ngModel)]="memberParams().gender" name="gender" value="male">
+						<input type="radio" class="btn" aria-label="Female" [(ngModel)]="memberParams().gender" name="gender" value="female">
 					</form>
 				</label>
 				<label class="flex justify-between items-center">
 					<span class="font-semibold">Select age</span>
 					<div class="flex gap-3">
-						<input type="number" [(ngModel)]="memberParams.minAge" [min]="18" (change)="onMinAgeChange()" class="input w-20" name="minAge">
-						<input type="number" [(ngModel)]="memberParams.maxAge" [min]="memberParams.minAge || 18" [max]="100" (input)="onMaxAgeChange()" class="input w-20" name="maxAge">
+						<input type="number" [(ngModel)]="memberParams().minAge" [min]="18" (change)="onMinAgeChange()" class="input w-20" name="minAge">
+						<input type="number" [(ngModel)]="memberParams().maxAge" [min]="memberParams().minAge || 18" [max]="100" (input)="onMaxAgeChange()" class="input w-20" name="maxAge">
 					</div>
 				</label>
 				<label class="flex justify-between items-center">
 					<span class="font-semibold">Order by:</span>
-					<select name="orderBy" class="select" [(ngModel)]="memberParams.orderBy">
+					<select name="orderBy" class="select" [(ngModel)]="memberParams().orderBy">
 						<option disabled selected>Order by</option>
 						<option value="created">Newest members</option>
 						<option value="lastActive">Last Active</option>

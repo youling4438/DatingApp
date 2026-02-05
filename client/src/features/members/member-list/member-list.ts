@@ -62,6 +62,7 @@ export class MemberList implements OnInit {
 	resetFilters(): void {
 		this.updateMessage = new MemberParams();
 		this.memberParams = new MemberParams();
+		localStorage.setItem('filters', JSON.stringify(this.memberParams));
 		this.loadMembers();
 	}
 
